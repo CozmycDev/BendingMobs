@@ -20,10 +20,12 @@ public class PKMethods {
 
     public static boolean collidesPKAbility(Location loc) {
         if (!Compatibility.isHooked("ProjectKorra")) return false;
+        if (loc == null) return false;
 
         Collection<CoreAbility> abilities = ElementalAbility.getAbilitiesByInstances();
 
         for (CoreAbility ability : abilities) {
+            if (ability == null || ability.getLocation() == null) return false;
             if (loc.distance(ability.getLocation()) <= 2.0) {
                 return true;
             }
