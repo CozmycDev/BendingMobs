@@ -1,3 +1,7 @@
+[![GitHub Pre-Release](https://img.shields.io/github/release-pre/CozmycDev/BendingMobs.svg)](https://github.com/CozmycDev/BendingMobs/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/CozmycDev/BendingMobs/total.svg)](https://github.com/CozmycDev/BendingMobs/releases)
+![Size](https://img.shields.io/github/repo-size/CozmycDev/BendingMobs.svg)
+
 # BendingMobs Plugin
 
 BendingMobs is a Spigot plugin that brings the elements from Avatar: The Last Airbender and Korra to Minecraft mobs. 
