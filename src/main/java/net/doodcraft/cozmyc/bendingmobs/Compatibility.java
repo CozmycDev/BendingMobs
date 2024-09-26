@@ -14,20 +14,20 @@ public class Compatibility {
         return hookedPlugins.containsKey(name);
     }
 
-    public static boolean hookPlugin(String name, String minVersion, String maxVersion) {
+    public static void hookPlugin(String name, String minVersion, String maxVersion) {
         Plugin plugin = Bukkit.getPluginManager().getPlugin(name);
 
         if (plugin == null) {
-            return false;
+            return;
         }
 
         String version = plugin.getDescription().getVersion().split("-")[0];
 
         if (isVersionSupported(version, minVersion, maxVersion)) {
-            return hookPlugin(name, plugin);
+            hookPlugin(name, plugin);
         } else {
             Bukkit.getLogger().info(String.format("%s v%s is unknown or unsupported. Attempting to hook anyway. There may be errors.", name, version));
-            return hookPlugin(name, plugin);
+            hookPlugin(name, plugin);
         }
     }
 
@@ -39,13 +39,12 @@ public class Compatibility {
         }
     }
 
-    private static boolean hookPlugin(String name, Plugin plugin) {
+    private static void hookPlugin(String name, Plugin plugin) {
         if (hookedPlugins.containsKey(name)) {
-            return false;
+            return;
         }
         hookedPlugins.put(name, plugin);
         Bukkit.getLogger().info(String.format("Hooked into %s successfully!", name));
-        return true;
     }
 
     private static int compareVersions(String version, String otherVersion) {

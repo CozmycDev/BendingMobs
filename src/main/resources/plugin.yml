@@ -3,4 +3,4 @@ version: '${project.version}'
 main: net.doodcraft.cozmyc.bendingmobs.BendingMobs
 authors: [ 'cozmyc', 'jedk1' ]
 softdepend: [ 'ProjectKorra', 'Bending', 'LibsDisguises', 'MythicMobs' ]
-api-version: '1.20'
+api-version: '1.19'

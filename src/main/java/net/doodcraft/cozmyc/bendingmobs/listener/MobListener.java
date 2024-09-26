@@ -20,11 +20,12 @@ import java.util.Objects;
 
 public class MobListener implements Listener {
 
-    public static boolean airFallDamage = BendingMobs.plugin.getConfig().getBoolean("Properties.Air.NoFallDamage");
-    public static boolean villagerFightBack = BendingMobs.plugin.getConfig().getBoolean("Properties.Entity.Villager.FightBack");
-    public static boolean preventMobCombustion = BendingMobs.plugin.getConfig().getBoolean("Properties.PreventMobCombustion");
-    public static boolean denyOtherSpawns = BendingMobs.plugin.getConfig().getBoolean("Properties.DenyOtherMobSpawns");
-    BendingMobs plugin;
+    public static final boolean airFallDamage = BendingMobs.plugin.getConfig().getBoolean("Properties.Air.NoFallDamage");
+    public static final boolean villagerFightBack = BendingMobs.plugin.getConfig().getBoolean("Properties.Entity.Villager.FightBack");
+    public static final boolean preventMobCombustion = BendingMobs.plugin.getConfig().getBoolean("Properties.PreventMobCombustion");
+    public static final boolean denyOtherSpawns = BendingMobs.plugin.getConfig().getBoolean("Properties.DenyOtherMobSpawns");
+
+    final BendingMobs plugin;
 
     public MobListener(BendingMobs plugin) {
         this.plugin = plugin;
@@ -35,11 +36,14 @@ public class MobListener implements Listener {
         if (event.getTarget() == null) {
             return;
         }
-        if (event.getEntity() instanceof LivingEntity entity && event.getTarget() instanceof LivingEntity) {
+        if (event.getEntity() instanceof LivingEntity && event.getTarget() instanceof LivingEntity) {
+            LivingEntity entity = (LivingEntity) event.getEntity();  // Manual cast
+            LivingEntity target = (LivingEntity) event.getTarget();  // Manual cast
+
             if (MobMethods.canEntityBend(entity.getType().name())) {
-                EntityManager.addEntity(entity, (LivingEntity) event.getTarget());
-                if (event.getTarget().getType().equals(EntityType.VILLAGER) && villagerFightBack) {
-                    EntityManager.addEntity((LivingEntity) event.getTarget(), entity);
+                EntityManager.addEntity(entity, target);
+                if (target.getType().equals(EntityType.VILLAGER) && villagerFightBack) {
+                    EntityManager.addEntity(target, entity);
                 }
             }
         }
@@ -75,10 +79,14 @@ public class MobListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEntityDamage(EntityDamageEvent event) {
-        if (event.getEntity() instanceof LivingEntity entity) {
+        if (event.getEntity() instanceof LivingEntity) {
+            LivingEntity entity = (LivingEntity) event.getEntity();  // Manual cast to LivingEntity
+
             if (MobMethods.canEntityBend(entity.getType().name())) {
-                if (((MobMethods.getElement(entity) != null && Objects.requireNonNull(MobMethods.getElement(entity)).isAirbender()) || MobMethods.isAvatar(entity)) && airFallDamage) {
-                    if (event.getCause() == DamageCause.FALL) {
+                if ((MobMethods.getElement(entity) != null && Objects.requireNonNull(MobMethods.getElement(entity)).isAirbender())
+                        || MobMethods.isAvatar(entity)) {
+
+                    if (airFallDamage && event.getCause() == DamageCause.FALL) {
                         event.setCancelled(true);
                     }
                 }

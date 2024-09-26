@@ -16,13 +16,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AirBlast {
 
     private static final double knockBack = BendingMobs.plugin.getConfig().getDouble("Abilities.Air.AirBlast.Knockback");
-    public static ConcurrentHashMap<Integer, AirBlast> instances = new ConcurrentHashMap<Integer, AirBlast>();
+    public static final ConcurrentHashMap<Integer, AirBlast> instances = new ConcurrentHashMap<>();
     private static int ID = Integer.MIN_VALUE;
     private final LivingEntity entity;
     private final Location origin;
     private final int id;
-    private Location head;
-    private Vector dir;
+    private final Location head;
+    private final Vector dir;
 
     public AirBlast(LivingEntity entity, Location target) {
         this.entity = entity;
@@ -46,7 +46,7 @@ public class AirBlast {
     }
 
     private boolean progress() {
-        if (entity == null || !StaticMethods.isFinite(head) || !StaticMethods.isFinite(dir)) {
+        if (entity == null || StaticMethods.isFinite(head) || !StaticMethods.isFinite(dir)) {
             return false;
         }
         if (entity.getWorld() != head.getWorld()) {

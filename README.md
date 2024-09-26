@@ -32,7 +32,6 @@ Future updates will support custom mobs and models through MythicMobs and ModelE
 Here is the default `config.yml` for BendingMobs:
 
 ```yaml
-Version: 1.2.0
 Properties:
   EntityTypes:
   - ZOMBIE

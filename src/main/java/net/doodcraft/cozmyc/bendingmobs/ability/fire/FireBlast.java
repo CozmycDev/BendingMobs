@@ -17,7 +17,7 @@ public class FireBlast {
 
     private static final double damage = BendingMobs.plugin.getConfig().getDouble("Abilities.Fire.FireBlast.Damage");
     private static final long fireTick = BendingMobs.plugin.getConfig().getLong("Abilities.Fire.FireBlast.FireTick");
-    public static ConcurrentHashMap<Integer, FireBlast> instances = new ConcurrentHashMap<Integer, FireBlast>();
+    public static final ConcurrentHashMap<Integer, FireBlast> instances = new ConcurrentHashMap<>();
     private static int ID = Integer.MIN_VALUE;
     private final LivingEntity entity;
     private final Location origin;
@@ -47,7 +47,7 @@ public class FireBlast {
     }
 
     private boolean progress() {
-        if (entity == null || !StaticMethods.isFinite(head) || !StaticMethods.isFinite(dir)) {
+        if (entity == null || StaticMethods.isFinite(head) || !StaticMethods.isFinite(dir)) {
             return false;
         }
         if (entity.getWorld() != head.getWorld()) {

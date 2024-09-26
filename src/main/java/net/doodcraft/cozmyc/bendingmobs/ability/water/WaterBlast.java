@@ -21,13 +21,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WaterBlast {
 
     private static final double damage = BendingMobs.plugin.getConfig().getDouble("Abilities.Water.WaterBlast.Damage");
-    public static ConcurrentHashMap<Integer, WaterBlast> instances = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<Integer, WaterBlast> instances = new ConcurrentHashMap<>();
     private static int ID = Integer.MIN_VALUE;
     private final LivingEntity entity;
     private final Location origin;
     private final int id;
-    private Location head;
-    private Vector dir;
+    private final Location head;
+    private final Vector dir;
 
     public WaterBlast(LivingEntity entity, Location target) {
         this.entity = entity;
@@ -52,7 +52,7 @@ public class WaterBlast {
     }
 
     private boolean progress() {
-        if (entity == null || !StaticMethods.isFinite(head) || !StaticMethods.isFinite(dir)) {
+        if (entity == null || StaticMethods.isFinite(head) || !StaticMethods.isFinite(dir)) {
             return false;
         }
         if (entity.isDead()) {
@@ -106,7 +106,7 @@ public class WaterBlast {
     private void displayBlock(Location location) {
         BlockDisplay blockDisplay = Objects.requireNonNull(location.getWorld()).spawn(location, BlockDisplay.class);
 
-        blockDisplay.setBlock(Material.SAND.createBlockData());
+        blockDisplay.setBlock(Material.BLUE_ICE.createBlockData());
         blockDisplay.setDisplayHeight(0.5F);
         blockDisplay.setDisplayWidth(0.5F);
         blockDisplay.setPersistent(false);

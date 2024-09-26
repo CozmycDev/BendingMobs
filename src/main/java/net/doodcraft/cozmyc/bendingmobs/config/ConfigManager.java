@@ -6,7 +6,7 @@ import org.bukkit.entity.EntityType;
 
 public class ConfigManager {
 
-    BendingMobs plugin;
+    final BendingMobs plugin;
 
     public ConfigManager(BendingMobs plugin) {
         this.plugin = plugin;
@@ -16,8 +16,6 @@ public class ConfigManager {
     private void init() {
         FileConfiguration config;
         config = plugin.getConfig();
-
-        config.addDefault("Version", "1.2.0");
 
         config.addDefault("Properties.EntityTypes", new String[]{
                 EntityType.ZOMBIE.name().toUpperCase()
@@ -43,13 +41,6 @@ public class ConfigManager {
         config.addDefault("LibsDisguises.SkinName.Earth", "EarthBender");
         config.addDefault("LibsDisguises.SkinName.Fire", "FireBender");
         config.addDefault("LibsDisguises.SkinName.Water", "WaterBender");
-
-//        config.addDefault("MythicMobs.Enabled", false);
-//        config.addDefault("MythicMobs.Mob.Avatar", "Avatar");
-//        config.addDefault("MythicMobs.Mob.Air", "AirBender");
-//        config.addDefault("MythicMobs.Mob.Earth", "EarthBender");
-//        config.addDefault("MythicMobs.Mob.Fire", "FireBender");
-//        config.addDefault("MythicMobs.Mob.Water", "WaterBender");
 
         config.addDefault("Abilities.Air.Enabled", true);
         config.addDefault("Abilities.Air.AirBlast.Knockback", 2.0);

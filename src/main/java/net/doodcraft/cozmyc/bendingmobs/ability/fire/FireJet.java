@@ -12,7 +12,7 @@ public class FireJet {
 
     private static final long duration = BendingMobs.plugin.getConfig().getLong("Abilities.Fire.FireJet.Duration");
     private static final double speed = BendingMobs.plugin.getConfig().getDouble("Abilities.Fire.FireJet.Speed");
-    public static ConcurrentHashMap<Integer, FireJet> instances = new ConcurrentHashMap<Integer, FireJet>();
+    public static final ConcurrentHashMap<Integer, FireJet> instances = new ConcurrentHashMap<>();
     private static int ID = Integer.MIN_VALUE;
     private final LivingEntity entity;
     private final Location target;

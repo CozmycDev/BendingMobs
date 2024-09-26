@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EntityManager {
 
     private static final int chance = BendingMobs.plugin.getConfig().getInt("Properties.BendFrequency");
-    public static ConcurrentHashMap<UUID, BendingEntity> entityArray = new ConcurrentHashMap<UUID, BendingEntity>();
+    public static final ConcurrentHashMap<UUID, BendingEntity> entityArray = new ConcurrentHashMap<>();
 
     public EntityManager() {
 

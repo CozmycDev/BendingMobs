@@ -12,7 +12,7 @@ public class AirScooter {
 
     private static final long duration = BendingMobs.plugin.getConfig().getLong("Abilities.Air.AirScooter.Duration");
     private static final double speed = BendingMobs.plugin.getConfig().getDouble("Abilities.Air.AirScooter.Speed");
-    public static ConcurrentHashMap<Integer, AirScooter> instances = new ConcurrentHashMap<Integer, AirScooter>();
+    public static final ConcurrentHashMap<Integer, AirScooter> instances = new ConcurrentHashMap<>();
     private static int ID = Integer.MIN_VALUE;
     private final LivingEntity entity;
     private final Location target;

@@ -20,9 +20,9 @@ import java.util.*;
 public class StaticMethods {
 
     public static final Set<Material> TRANSPARENT = new HashSet<>();
-    public static Set<String> EARTH_BLOCKS = new HashSet<>();
-    public static Set<String> ICE_BLOCKS = new HashSet<>();
-    public static Set<String> LAVA_BLOCKS = new HashSet<>();
+    public static final Set<String> EARTH_BLOCKS = new HashSet<>();
+    public static final Set<String> ICE_BLOCKS = new HashSet<>();
+    public static final Set<String> LAVA_BLOCKS = new HashSet<>();
 
     static {
         for (final Material mat : Material.values()) {
@@ -48,7 +48,7 @@ public class StaticMethods {
     }
 
     public static boolean isFinite(Location loc) {
-        return Double.isFinite(loc.getX()) && Double.isFinite(loc.getY()) && Double.isFinite(loc.getZ());
+        return !Double.isFinite(loc.getX()) || !Double.isFinite(loc.getY()) || !Double.isFinite(loc.getZ());
     }
 
     public static boolean isFinite(Vector vec) {
@@ -190,7 +190,7 @@ public class StaticMethods {
     }
 
     public static Block getRandomSourceBlock(Location location, int radius, Element element) {
-        List<Integer> checked = new ArrayList<Integer>();
+        List<Integer> checked = new ArrayList<>();
         List<Block> blocks = getBlocksAroundPoint(location, radius);
 
         for (int i = 0; i < blocks.size(); i++) {

@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EarthBlast {
 
     private static final double damage = BendingMobs.plugin.getConfig().getDouble("Abilities.Earth.EarthBlast.Damage");
-    public static ConcurrentHashMap<Integer, EarthBlast> instances = new ConcurrentHashMap<Integer, EarthBlast>();
+    public static final ConcurrentHashMap<Integer, EarthBlast> instances = new ConcurrentHashMap<>();
     private static int ID = Integer.MIN_VALUE;
     private final LivingEntity entity;
     private Location origin;
@@ -68,7 +68,7 @@ public class EarthBlast {
     }
 
     private boolean progress() {
-        if (entity == null || !StaticMethods.isFinite(head) || !StaticMethods.isFinite(dir)) {
+        if (entity == null || StaticMethods.isFinite(head) || !StaticMethods.isFinite(dir)) {
             return false;
         }
         if (entity.isDead()) {

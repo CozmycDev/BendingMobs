@@ -26,10 +26,10 @@ public class MobMethods {
     private static final double movementSpeed = BendingMobs.plugin.getConfig().getDouble("Properties.MovementSpeed");
     private static final boolean mobsSwim = BendingMobs.plugin.getConfig().getBoolean("Properties.DoMobsSwim");
 
-    public static List<String> disabledWorlds = new ArrayList<String>();
-    public static List<String> entityTypes = new ArrayList<String>();
+    public static final List<String> disabledWorlds = new ArrayList<>();
+    public static final List<String> entityTypes = new ArrayList<>();
 
-    public static Random rand = new Random();
+    public static final Random rand = new Random();
 
     public static void assignElement(Entity entity) {
         if (!entity.hasMetadata("element")) {
@@ -61,10 +61,7 @@ public class MobMethods {
     }
 
     public static boolean isAvatar(LivingEntity entity) {
-        if (entity.hasMetadata("element") && !entity.getMetadata("element").isEmpty() && (entity.getMetadata("element").get(0).asInt() == 4)) {
-            return true;
-        }
-        return false;
+        return entity.hasMetadata("element") && !entity.getMetadata("element").isEmpty() && (entity.getMetadata("element").get(0).asInt() == 4);
     }
 
     public static boolean isDisabledWorld(World world) {
@@ -78,11 +75,16 @@ public class MobMethods {
             public void run() {
                 List<Entity> entitiesToRemove = new ArrayList<>();
 
-                for (Entity entity : Bukkit.getWorlds().stream().flatMap(world -> world.getEntities().stream()).toList()) {
+                List<Entity> entities = new ArrayList<>();
+                for (World world : Bukkit.getWorlds()) {
+                    entities.addAll(world.getEntities());
+                }
+
+                for (Entity entity : entities) {
                     if (!(entity instanceof LivingEntity)) continue;
                     if (!canEntityBend(entity.getType().name())) continue;
 
-                    if (!(hasElement((LivingEntity) entity))) {
+                    if (!hasElement((LivingEntity) entity)) {
                         entitiesToRemove.add(entity);
                         continue;
                     }
@@ -145,13 +147,27 @@ public class MobMethods {
     }
 
     private static String getNameFor(Element element, String configPath) {
-        return switch (element) {
-            case Air -> BendingMobs.plugin.getConfig().getString(configPath + ".Air");
-            case Earth -> BendingMobs.plugin.getConfig().getString(configPath + ".Earth");
-            case Fire -> BendingMobs.plugin.getConfig().getString(configPath + ".Fire");
-            case Water -> BendingMobs.plugin.getConfig().getString(configPath + ".Water");
-            case Avatar -> BendingMobs.plugin.getConfig().getString(configPath + ".Avatar");
-            default -> "Herobrine";
-        };
+        String name;
+        switch (element) {
+            case Air:
+                name = BendingMobs.plugin.getConfig().getString(configPath + ".Air");
+                break;
+            case Earth:
+                name = BendingMobs.plugin.getConfig().getString(configPath + ".Earth");
+                break;
+            case Fire:
+                name = BendingMobs.plugin.getConfig().getString(configPath + ".Fire");
+                break;
+            case Water:
+                name = BendingMobs.plugin.getConfig().getString(configPath + ".Water");
+                break;
+            case Avatar:
+                name = BendingMobs.plugin.getConfig().getString(configPath + ".Avatar");
+                break;
+            default:
+                name = "Herobrine";
+                break;
+        }
+        return name;
     }
 }

@@ -10,6 +10,7 @@ import java.util.Collection;
 
 public class PKMethods {
 
+    // using deprecated methods
     public static boolean isWithinPKShield(Location loc) {
         if (!Compatibility.isHooked("ProjectKorra")) return false;
         if (AirShield.isWithinShield(loc)) {
